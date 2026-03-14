@@ -1,28 +1,24 @@
-from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import streamlit as st
 
-# Page title
 st.title("🤖 AI Sentiment Analyzer")
 st.subheader("Type any sentence and AI will analyze it!")
 
-# Text input box
 text = st.text_area("Enter your sentence here:")
 
-# Analyze button
 if st.button("Analyze Sentiment"):
-    
     if text == "":
         st.warning("⚠️ Please enter a sentence first!")
-    
     else:
-        blob = TextBlob(text)
-        score = blob.sentiment.polarity
+        analyzer = SentimentIntensityAnalyzer()
+        score = analyzer.polarity_scores(text)
+        compound = score['compound']
 
-        if score > 0:
+        if compound >= 0.05:
             st.success("✅ Positive Sentence!")
-        elif score < 0:
+        elif compound <= -0.05:
             st.error("❌ Negative Sentence!")
         else:
             st.info("😐 Neutral Sentence!")
 
-        st.write(f"**Confidence Score:** {score}")
+        st.write(f"**Confidence Score:** {compound}")

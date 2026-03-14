@@ -33,10 +33,3 @@ if st.button("Analyze Sentiment"):
         st.write(f"**Positive words found:** {pos}")
         st.write(f"**Negative words found:** {neg}")
         st.write(f"**Confidence Score:** {round(score, 2)}")
-```
-
----
-
-## Also Update requirements.txt to ONLY this:
-```
-streamlit
